@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "loga_firms",
+  "info": {
+    "singularName": "loga-firm",
+    "pluralName": "loga-firms",
+    "displayName": "logaFirm",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "logos": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

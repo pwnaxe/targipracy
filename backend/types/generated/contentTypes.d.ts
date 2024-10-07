@@ -485,6 +485,127 @@ export interface PluginUsersPermissionsUser
   };
 }
 
+export interface ApiGaleriaGaleria extends Struct.SingleTypeSchema {
+  collectionName: 'galerias';
+  info: {
+    singularName: 'galeria';
+    pluralName: 'galerias';
+    displayName: 'Galeria';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    karuzelas: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::galeria.galeria'
+    >;
+  };
+}
+
+export interface ApiLogaFirmLogaFirm extends Struct.SingleTypeSchema {
+  collectionName: 'loga_firms';
+  info: {
+    singularName: 'loga-firm';
+    pluralName: 'loga-firms';
+    displayName: 'logaFirm';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    logos: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::loga-firm.loga-firm'
+    >;
+  };
+}
+
+export interface ApiPartnershipPartnership extends Struct.SingleTypeSchema {
+  collectionName: 'partnerships';
+  info: {
+    singularName: 'partnership';
+    pluralName: 'partnerships';
+    displayName: 'Wsp\u00F3\u0142praca';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    description: Schema.Attribute.Blocks;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::partnership.partnership'
+    >;
+  };
+}
+
+export interface ApiStopkaStopka extends Struct.SingleTypeSchema {
+  collectionName: 'stopkas';
+  info: {
+    singularName: 'stopka';
+    pluralName: 'stopkas';
+    displayName: 'Stopka';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    email: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    title2: Schema.Attribute.String;
+    FirstpersonTitle: Schema.Attribute.String;
+    SecoundpersonTitle: Schema.Attribute.String;
+    firstEmail: Schema.Attribute.String;
+    SecoundEmail: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::stopka.stopka'>;
+  };
+}
+
 export interface AdminPermission extends Struct.CollectionTypeSchema {
   collectionName: 'admin_permissions';
   info: {
@@ -860,6 +981,10 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::galeria.galeria': ApiGaleriaGaleria;
+      'api::loga-firm.loga-firm': ApiLogaFirmLogaFirm;
+      'api::partnership.partnership': ApiPartnershipPartnership;
+      'api::stopka.stopka': ApiStopkaStopka;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;
