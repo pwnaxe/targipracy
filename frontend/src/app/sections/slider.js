@@ -11,7 +11,7 @@ const Slider = () => {
     // Funkcja pobierająca logotypy z API Strapi
     const fetchLogos = async () => {
       try {
-        const response = await fetch('http://localhost:1337/api/loga-firm?populate=*');
+        const response = await fetch('https://pja.waw.pl/api/loga-firm?populate=*');
         const data = await response.json();
         const logoData = data.data.logos; // Bezpośrednie odwołanie do logos
     
@@ -31,7 +31,7 @@ const Slider = () => {
     
           return {
             id: logo.id,
-            url: `http://localhost:1337${imageUrl}`, // URL z serwera Strapi
+            url: `https://pja.waw.pl${imageUrl}`, // URL z serwera Strapi
             alt: logo.alternativeText || logo.name,
           };
         });

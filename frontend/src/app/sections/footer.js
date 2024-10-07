@@ -8,7 +8,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchFooterData = async () => {
       try {
-        const response = await fetch('http://localhost:1337/api/stopka?populate=*');
+        const response = await fetch('https://pja.waw.pl/api/stopka?populate=*');
         const data = await response.json();
         setFooterData(data.data);
       } catch (error) {

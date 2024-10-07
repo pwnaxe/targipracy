@@ -8,7 +8,7 @@ import { Line } from '@react-three/drei';
 
 export default function App() {
   return (
-    <div className="w-full h-full absolute top-0 right-0">
+    <div className="w-full h-full relative z-0">
     <Canvas camera={{ position: [0, 0, 13], fov: 25 }}>
       <Physics debug interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
         <Band />

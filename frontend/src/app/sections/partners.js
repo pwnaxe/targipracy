@@ -11,7 +11,7 @@ const Partnership = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch('http://localhost:1337/api/partnership?populate=*');
+        const response = await fetch('https://pja.waw.pl/api/partnership?populate=*');
         const data = await response.json();
         
         setContent(data.data.description || []);

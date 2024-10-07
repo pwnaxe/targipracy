@@ -11,7 +11,7 @@ const Slider = () => {
     // Funkcja pobierająca karuzelatypy z API Strapi
     const fetchKaruzela = async () => {
       try {
-        const response = await fetch('http://localhost:1337/api/galeria?populate=*');
+        const response = await fetch('https://pja.waw.pl/api/galeria?populate=*');
         const data = await response.json();
         const karuzelaData = data.data.karuzelas; // Bezpośrednie odwołanie do karuzelas
     
@@ -31,7 +31,7 @@ const Slider = () => {
     
           return {
             id: karuzela.id,
-            url: `http://localhost:1337${imageUrl}`, // URL z serwera Strapi
+            url: `https://pja.waw.pl${imageUrl}`, // URL z serwera Strapi
             alt: karuzela.alternativeText || karuzela.name,
           };
         });
