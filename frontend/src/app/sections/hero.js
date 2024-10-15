@@ -22,9 +22,12 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className='w-screen h-screen'>
-      <div className="pl-10 mt-32">
-        <img src="/page/logoabk.webp" alt="Targi Pracy PJATK" className="w-52" />
+    <div className='w-screen h-screen text-white bg-neutral-950'>
+    <div className='w-screen h-screen absolute'>
+        <Badge />
+      </div>
+      <div className="pl-10 pt-32">
+        <img src="/page/pjatk2.webp" alt="Targi Pracy PJATK" className="w-52" />
         <div className='pl-10 pt-10'>
         {content ? (
           <BlocksRenderer
@@ -54,9 +57,7 @@ const Hero = () => {
         </div>
         <button className='bg-yellow-400 text-black rounded-full ml-10 mt-10 py-3 px-6 hover:bg-yellow-300 transition duration-300 uppercase font-semibold'>Zadeklaruj swój udział</button>
       </div>
-      <div className='absolute top-0 right-0 w-screen h-screen'>
-        <Badge />
-      </div>
+      
     </div>
   );
 }

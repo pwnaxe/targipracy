@@ -13,7 +13,7 @@ export default function NavBar() {
   }
 
   return (
-    <nav className='hidden lg:flex bg-neutral-700 text-white items-center justify-center text-xl space-x-8 z-10'>
+    <nav className='hidden lg:flex bg-neutral-900 text-white items-center justify-center text-xl space-x-8 z-10'>
       <ul className='flex flex-row space-x-4 lg:space-x-6 uppercase py-4'>
         <li><a href="/">O Wydarzeniu</a></li>
         <li><a href="/">Agenda</a></li>
