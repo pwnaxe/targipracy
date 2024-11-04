@@ -1,3 +1,4 @@
+'use client'
 import * as THREE from 'three'
 import { useEffect, useRef, useState } from 'react'
 import { Canvas, extend, useThree, useFrame } from '@react-three/fiber'
@@ -9,6 +10,7 @@ extend({ MeshLineGeometry, MeshLineMaterial })
 useGLTF.preload('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb')
 useTexture.preload('/page/smycz.png')
 useTexture.preload('/page/band.png')
+useTexture.preload('/page/band2.png')
 
 export default function App() {
   return (
@@ -34,6 +36,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   const { nodes, materials } = useGLTF('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb')
   const texture = useTexture('/page/smycz.png')
   const badge = useTexture('/page/band.png')
+  const badge1 = useTexture('/page/band2.png')
   const { width, height } = useThree((state) => state.size)
   const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]))
   const [dragged, drag] = useState(false)
@@ -85,6 +88,9 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   badge.wrapS = THREE.RepeatWrapping;
 badge.wrapT = THREE.RepeatWrapping;
 badge.repeat.set(2, -1.22);
+badge1.wrapS = THREE.RepeatWrapping;
+badge1.wrapT = THREE.RepeatWrapping;
+badge1.repeat.set(2, -1.22);
 
   return (
     <>
@@ -111,6 +117,9 @@ badge.repeat.set(2, -1.22);
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial map={badge} map-anisotropy={16} clearcoat={1} clearcoatRoughness={0.15} roughness={0.3} metalness={1} />
             </mesh>
+            <mesh geometry={nodes.card.geometry} rotation={[0, Math.PI, 0]}>
+      <meshPhysicalMaterial map={badge1} map-anisotropy={16} clearcoat={1} clearcoatRoughness={0.15} roughness={0.3} metalness={1} />
+    </mesh>
             <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
           </group>

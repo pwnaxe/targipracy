@@ -8,19 +8,16 @@ const Slider = () => {
   const [karuzela, setKaruzela] = useState([]);
 
   useEffect(() => {
-    // Funkcja pobierająca karuzelatypy z API Strapi
     const fetchKaruzela = async () => {
       try {
         const response = await fetch('https://pja.waw.pl/api/galeria?populate=*');
         const data = await response.json();
-        const karuzelaData = data.data.karuzelas; // Bezpośrednie odwołanie do karuzelas
+        const karuzelaData = data.data.karuzelas;
     
-        // Wybieranie odpowiednich formatów obrazów (najpierw large, potem medium, a jeśli nie, to oryginał)
         const imageKaruzela = karuzelaData.map((karuzela) => {
           const formats = karuzela.formats;
-          let imageUrl = karuzela.url; // Domyślnie url oryginalnego obrazu
+          let imageUrl = karuzela.url;
     
-          // Wybieranie odpowiedniego formatu: large > medium > original
           if (formats) {
             if (formats.medium) {
               imageUrl = formats.medium.url;
@@ -31,7 +28,7 @@ const Slider = () => {
     
           return {
             id: karuzela.id,
-            url: `https://pja.waw.pl${imageUrl}`, // URL z serwera Strapi
+            url: `https://pja.waw.pl${imageUrl}`,
             alt: karuzela.alternativeText || karuzela.name,
           };
         });
@@ -47,7 +44,6 @@ const Slider = () => {
 
   useEffect(() => {
     if (karuzela.length > 0) {
-      // Inicjalizacja Splide po załadowaniu karuzelatypów
       new Splide('#slider', {
         type: 'loop',
         perPage: 3,

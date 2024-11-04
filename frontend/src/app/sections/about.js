@@ -4,11 +4,12 @@ import Image from 'next/image';
 import Laptop from '../assets/page/notebook.webp';
 import Data from '../assets/page/data.webp';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-
+import { useLanguage } from '@/app/context/languageContext';
 
 const About = () => {
+  const { language } = useLanguage();
   const [content, setContent] = useState(null);
-  const [content2, setContent2] = useState(null); 
+  const [content2, setContent2] = useState(null);
   const [title, setTitle] = useState('');
   const [title2, setTitle2] = useState('');
   const [aboutUsDate, setAboutUsDate] = useState('');
@@ -16,33 +17,37 @@ const About = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch('https://pja.waw.pl/api/about?populate=*');
+        // Używamy dynamicznego języka do pobierania danych
+        const response = await fetch(`https://pja.waw.pl/api/about?locale=${language}&populate=*`);
         const data = await response.json();
         
-        // Ustawienie treści dla pierwszej sekcji
         setContent(data.data.description || []);
         setTitle(data.data.title);
-        
-        // Ustawienie treści dla drugiej sekcji
-        setContent2(data.data.description2 || []); // Assuming `description2` is available in API
+        setContent2(data.data.description2 || []);
         setTitle2(data.data.title2);
-        setAboutUsDate(data.data.aboutUsDate); // Jeśli data jest w API
+        setAboutUsDate(data.data.aboutUsDate);
       } catch (error) {
         console.error('Błąd pobierania danych:', error);
       }
     };
 
     fetchContent();
-  }, []);
+  }, [language]); // Dodajemy language jako zależność, aby pobierać dane przy zmianie języka
 
   return (
     <>
-      {/* Pierwsza sekcja */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-24">
         <div className="flex justify-center items-center">
-          <Image src={Laptop} alt="notebook" width={300} height={300} className="w-[45vh] h-auto" />
+          <Image 
+            src={Laptop} 
+            alt="notebook" 
+            width={300} 
+            height={300} 
+            className="w-[45vh] h-auto"
+            priority={false}
+          />
         </div>
-        <div id="o-wydarzeniu" className="mt-8 mx-4 md:mx-16 text-center md:text-left">
+        <div id="about" className="mt-8 mx-4 md:mx-16 text-center md:text-left">
           <h4 className="text-2xl font-semibold mb-4">{title}</h4>
           {content ? (
             <BlocksRenderer
@@ -72,7 +77,6 @@ const About = () => {
         </div>
       </div>
 
-      {/* Druga sekcja */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
         <div id="agenda" className="mx-4 md:mx-16 text-center md:text-left">
           <h4 className="text-2xl font-semibold mb-4">{title2}</h4>

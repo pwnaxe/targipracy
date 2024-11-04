@@ -32,8 +32,9 @@ const Partnership = () => {
     <Image 
     src="/assets/page/logos.webp" 
     alt="Logos" 
-    layout="fill" 
-    objectFit="cover" 
+    fill={true} 
+    priority={false}	
+    style={{objectFit: "cover"}}
     className="-ml-10"
   />
       <div className="relative container mx-auto px-4">
