@@ -68,7 +68,7 @@ export default function NavBar() {
   }
 
   return (
-    <nav className='hidden lg:flex bg-neutral-950 border-b-2 border-yellow-400 text-yellow-400 items-center justify-center text-xl space-x-8'>
+    <nav className='hidden lg:flex bg-neutral-900 border-b-2 border-yellow-400 text-yellow-400 items-center justify-center text-xl space-x-8'>
       <ul className='flex flex-row space-x-4 lg:space-x-6 uppercase py-4'>
         {navItems ? (
           <>

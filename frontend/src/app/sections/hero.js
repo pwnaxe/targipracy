@@ -56,7 +56,7 @@ export default function Hero() {
 
   if (content === null) {
     return (
-      <div className='w-screen h-screen text-white bg-neutral-950'>
+      <div className='w-screen h-screen text-white bg-neutral-900'>
         <div className='w-screen h-screen absolute'>
           <Badge />
         </div>
@@ -96,7 +96,7 @@ export default function Hero() {
   }
 
   return (
-    <div className='w-screen h-screen text-white bg-neutral-950'>
+    <div className='w-screen h-screen text-white bg-neutral-900'>
       <div className='w-screen h-screen absolute'>
         <Badge />
       </div>

@@ -8,6 +8,7 @@ import Partners from '@/app/sections/partners';
 import Footer from '@/app/sections/footer';
 import Navbar from '@/app/components/navbar';
 import { LanguageProvider } from './context/languageContext';
+import Bar from '@/app/sections/bar';
 
 export default function Home() {
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function Home() {
         <Slider />
         <Galery />
         <Partners />
+        <Bar />
         <Footer />
       </div>
     </LanguageProvider>
