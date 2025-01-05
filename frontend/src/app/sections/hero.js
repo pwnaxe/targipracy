@@ -57,10 +57,10 @@ export default function Hero() {
   if (content === null) {
     return (
       <div className='w-screen h-screen text-white bg-neutral-900'>
-        <div className='w-screen h-screen absolute'>
+        <div className='hidden md:block w-screen h-screen absolute'>
           <Badge />
         </div>
-        <div className="pl-10 pt-32">
+        <div className="pl-2 md:pl-10 pt-4 md:pt-32">
           <Image
             src="/page/pjatk2.webp"
             alt="Targi Pracy PJATK"
@@ -113,7 +113,7 @@ export default function Hero() {
 
   return (
     <div className='w-screen h-screen text-white bg-neutral-900'>
-      <div className='w-screen h-screen absolute'>
+      <div className='hidden lg:block w-screen h-screen absolute'>
         <Badge />
       </div>
       <div className="pl-10 pt-32">

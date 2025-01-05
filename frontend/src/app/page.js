@@ -18,7 +18,9 @@ export default function Home() {
   return (
     <LanguageProvider>
       <div>
+      <div className="sticky top-0 z-10">
         <Navbar />
+      </div>
         <Hero />
         <About />
         <Slider />
