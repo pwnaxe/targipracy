@@ -42,7 +42,7 @@ export default function Hero() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://pja.waw.pl/api/hero?locale=${language}&populate=*`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hero?locale=${language}&populate=*`);
         const data = await res.json();
         setContent(data.data.content);
         setText(data.data.text)
@@ -73,25 +73,25 @@ export default function Hero() {
               blocks={{
                 paragraph: ({ children }) => <p className="text-xl mt-4">{children}</p>,
                 heading: ({ children, level }) => {
-  const validHeadingLevel = Math.min(Math.max(level, 1), 6); // Walidacja poziomu nagłówka (1-6)
+                  const validHeadingLevel = Math.min(Math.max(level, 1), 6); // Walidacja poziomu nagłówka (1-6)
 
-  if (validHeadingLevel === 1) {
-    return <h1 className="text-5xl font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h1>;
-  }
-  if (validHeadingLevel === 2) {
-    return <h2 className="text-3xl font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h2>;
-  }
-  if (validHeadingLevel === 3) {
-    return <h3 className="text-3xl font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h3>;
-  }
-  if (validHeadingLevel === 4) {
-    return <h4 className="text-2xl font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h4>;
-  }
-  if (validHeadingLevel === 5) {
-    return <h5 className="text-xl font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h5>;
-  }
-  return <h6 className="text-lg font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h6>;
-},
+                  if (validHeadingLevel === 1) {
+                    return <h1 className="text-5xl font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h1>;
+                  }
+                  if (validHeadingLevel === 2) {
+                    return <h2 className="text-3xl font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h2>;
+                  }
+                  if (validHeadingLevel === 3) {
+                    return <h3 className="text-3xl font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h3>;
+                  }
+                  if (validHeadingLevel === 4) {
+                    return <h4 className="text-2xl font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h4>;
+                  }
+                  if (validHeadingLevel === 5) {
+                    return <h5 className="text-xl font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h5>;
+                  }
+                  return <h6 className="text-lg font-bold leading-relaxed transition duration-1000 ease-in-out transform">{children}</h6>;
+                },
                 list: ({ children, format }) => (
                   <ul className={`list-${format === 'ordered' ? 'decimal' : 'disc'} ml-5`}>{children}</ul>
                 ),

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(mv:*)",
+      "Bash(for file in *.js)",
+      "Bash(do mv \"$file\" \"$file%.js.tsx\")",
+      "Bash(done)",
+      "Bash(find:*)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 10 npm run dev)",
+      "Bash(npm run lint)",
+      "Bash(git restore:*)",
+      "Bash(git clean:*)"
+    ],
+    "deny": []
+  }
+}

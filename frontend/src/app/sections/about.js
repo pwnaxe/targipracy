@@ -13,8 +13,8 @@ const About = () => {
     const fetchTitle = async () => {
       setTitleData(null);
       try {
-        const response = await fetch (
-          `https://pja.waw.pl/api/o-wydarzeniu-tytul?locale=${language}&populate=*`
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/o-wydarzeniu-tytul?locale=${language}&populate=*`
         );
         const responseData = await response.json();
         setTitleData(responseData.data);
@@ -29,7 +29,7 @@ const About = () => {
       setData(null);
       try {
         const response = await fetch(
-          `https://pja.waw.pl/api/abouts?locale=${language}&populate=*`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/abouts?locale=${language}&populate=*`
         );
         const responseData = await response.json();
 

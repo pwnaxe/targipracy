@@ -16,16 +16,16 @@ const Slider = () => {
   useEffect(() => {
     const fetchLogos = async () => {
       try {
-        const response = await fetch(`https://pja.waw.pl/api/loga-firm?locale=${language}&populate=*`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/loga-firm?locale=${language}&populate=*`);
         const data = await response.json();
         setTitle(data.data)
 
         const logoData = data.data.logos;
-    
+
         const imageLogos = logoData.map((logo) => {
           const formats = logo.formats;
           let imageUrl = logo.url;
-    
+
           if (formats) {
             if (formats.medium) {
               imageUrl = formats.medium.url;
@@ -33,14 +33,14 @@ const Slider = () => {
               imageUrl = formats.thumbnail.url;
             }
           }
-    
+
           return {
             id: logo.id,
-            url: `https://pja.waw.pl${imageUrl}`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}${imageUrl}`,
             alt: logo.alternativeText || logo.name,
           };
         });
-    
+
         setLogos(imageLogos);
       } catch (error) {
         console.error('Błąd pobierania logotypów:', error);
@@ -65,7 +65,7 @@ const Slider = () => {
         breakpoints: {
           1440: {
             perPage: 3,
-            gap:"2rem"
+            gap: "2rem"
           },
           1024: {
             perPage: 2,
@@ -83,19 +83,19 @@ const Slider = () => {
   return (
     <div className="bg-neutral-900 text-yellow-400 py-24 sm:py-32">
       <div className="mx-auto w-screen px-6 lg:px-8">
-    <h1 className='text-center text-4xl font-semibold pb-12'>{title.title}</h1>
-    <div id="logos-slider" className="splide pt-4" aria-label="Logos zdjęć">
-      <div className="splide__track w-11/12 mx-auto">
-        <ul className="splide__list">
-          {logo.map((logo) => (
-            <li className="splide__slide h-32 w-auto mr-2" key={logo.id}>
-              <img src={logo.url} alt={logo.alt} className="w-auto h-full object-contain rounded-lg shadow-lg" />
-            </li>
-          ))}
-        </ul>
+        <h1 className='text-center text-4xl font-semibold pb-12'>{title.title}</h1>
+        <div id="logos-slider" className="splide pt-4" aria-label="Logos zdjęć">
+          <div className="splide__track w-11/12 mx-auto">
+            <ul className="splide__list">
+              {logo.map((logo) => (
+                <li className="splide__slide h-32 w-auto mr-2" key={logo.id}>
+                  <img src={logo.url} alt={logo.alt} className="w-auto h-full object-contain rounded-lg shadow-lg" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
     </div>
   );
 };

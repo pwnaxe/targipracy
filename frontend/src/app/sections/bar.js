@@ -12,8 +12,8 @@ export default function Bar() {
     const fetchTitle = async () => {
       setTitleData(null);
       try {
-        const response = await fetch (
-          `https://pja.waw.pl/api/baner?locale=${language}&populate=*`
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/baner?locale=${language}&populate=*`
         );
         const responseData = await response.json();
         setTitleData(responseData.data);

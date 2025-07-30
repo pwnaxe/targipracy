@@ -16,11 +16,11 @@ const Slider = () => {
     const fetchKaruzela = async () => {
       try {
         const response = await fetch(
-          `https://pja.waw.pl/api/galeria?locale=${language}&populate=*`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/galeria?locale=${language}&populate=*`
         );
         const data = await response.json();
         setTitle(data.data)
-        const karuzelaData = data.data.karuzelas;                  
+        const karuzelaData = data.data.karuzelas;
 
         const imageKaruzela = karuzelaData.map((karuzela) => {
           const formats = karuzela.formats;
@@ -36,7 +36,7 @@ const Slider = () => {
 
           return {
             id: karuzela.id,
-            url: `https://pja.waw.pl${imageUrl}`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}${imageUrl}`,
             alt: karuzela.alternativeText || karuzela.name,
           };
         });

@@ -1,0 +1,46 @@
+{
+  "kind": "singleType",
+  "collectionName": "o_wydarzeniu_tytuls",
+  "info": {
+    "singularName": "o-wydarzeniu-tytul",
+    "pluralName": "o-wydarzeniu-tytuls",
+    "displayName": "O Wydarzeniu Tytuł",
+    "description": "Title section for About Event"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "altTitle": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
