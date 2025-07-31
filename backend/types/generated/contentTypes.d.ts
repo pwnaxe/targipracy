@@ -393,8 +393,7 @@ export interface ApiAboutAbout extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text &
-      Schema.Attribute.Required &
+    description: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -403,7 +402,6 @@ export interface ApiAboutAbout extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'>;
     name: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

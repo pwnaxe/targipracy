@@ -2,29 +2,26 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLanguage } from '@/app/context/languageContext';
+import { useStaticData } from '@/app/context/staticDataContext';
 
 
 const Footer = () => {
   const [footerData, setFooterData] = useState(null);
   const { language } = useLanguage();
-  
+  const staticData = useStaticData();
+
 
   useEffect(() => {
-    const fetchFooterData = async () => {
-      try {
-        const response = await fetch(`https://pja.waw.pl/api/stopka?locale=${language}&populate=*`);
+    if (staticData) {
+      const footerInfo = language === 'pl' ? staticData.footer?.pl : staticData.footer?.en;
 
-        const data = await response.json();
-        setFooterData(data.data);
-      } catch (error) {
-        console.error("Error fetching footer data:", error);
+      if (footerInfo?.data) {
+        setFooterData(footerInfo.data);
       }
-    };
+    }
+  }, [language, staticData]);
 
-    fetchFooterData();
-  }, [language]);
-
-  if (!footerData) {
+  if (!staticData) {
     return <div>Loading...</div>;
   }
 
@@ -36,48 +33,48 @@ const Footer = () => {
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
               <div>
                 <h2 className="text-pretty text-4xl font-semibold tracking-tight text-gray-900">
-                  {footerData.title}
+                  {footerData?.title || 'Kontakt'}
                 </h2>
                 <p className="mt-4 text-base/7 text-gray-600">
-                  {footerData.title2}
+                  {footerData?.title2 || ''}
                 </p>
               </div>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8">
                 <div className="rounded-2xl bg-neutral-900 text-yellow-400 p-10 col-span-2 text-center">
                   <h3 className="text-base/7 font-semibold">
-                    {footerData.emailTitle}
+                    {footerData?.emailTitle || 'Nasze biuro'}
                   </h3>
                   <dl className="mt-3 space-y-1 text-sm/6">
                     <div>
                       <dt className="sr-only">Email</dt>
                       <dd>
                         <a
-                          href={`mailto:${footerData.email}`}
+                          href={`mailto:${footerData?.email || ''}`}
                           className="font-semibold text-zinc-200"
                         >
-                          {footerData.email}
+                          {footerData?.email || ''}
                         </a>
                       </dd>
                     </div>
                     <div className="mt-1">
                       <dt className="sr-only">Phone number</dt>
-                      <a href={`tel:${footerData.phone}`}>{footerData.phone}</a>
+                      <a href={`tel:${footerData?.phone || ''}`}>{footerData?.phone || ''}</a>
                     </div>
                   </dl>
                 </div>
                 <div className="rounded-2xl bg-neutral-900 text-yellow-400 p-10">
                   <h3 className="text-base/7 font-semibold">
-                    {footerData.FirstpersonTitle}
+                    {footerData?.FirstpersonTitle || 'Osoba kontaktowa'}
                   </h3>
                   <dl className="mt-3 space-y-1 text-sm/6">
                     <div>
                       <dt className="sr-only">Email</dt>
                       <dd>
                         <a
-                          href={`mailto:${footerData.firstEmail}`}
+                          href={`mailto:${footerData?.firstEmail || ''}`}
                           className="font-semibold text-zinc-200"
                         >
-                          {footerData.firstEmail}
+                          {footerData?.firstEmail || ''}
                         </a>
                       </dd>
                     </div>
@@ -85,17 +82,17 @@ const Footer = () => {
                 </div>
                 <div className="rounded-2xl bg-neutral-900 text-yellow-400 p-10">
                   <h3 className="text-base/7 font-semibold">
-                    {footerData.SecoundpersonTitle}
+                    {footerData?.SecoundpersonTitle || 'Osoba kontaktowa'}
                   </h3>
                   <dl className="mt-3 space-y-1 text-sm/6">
                     <div>
                       <dt className="sr-only">Email</dt>
                       <dd>
                         <a
-                          href={`mailto:${footerData.SecoundEmail}`}
+                          href={`mailto:${footerData?.SecoundEmail || ''}`}
                           className="font-semibold text-zinc-200"
                         >
-                          {footerData.SecoundEmail}
+                          {footerData?.SecoundEmail || ''}
                         </a>
                       </dd>
                     </div>

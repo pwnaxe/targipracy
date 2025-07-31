@@ -1,9 +1,23 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '@/app/context/languageContext';
+import { useStaticData } from '@/app/context/staticDataContext';
 
 export default function NavBar() {
-  const { language, toggleLanguage } = useLanguage();
+  let language, toggleLanguage, staticData;
+
+  try {
+    const languageContext = useLanguage();
+    language = languageContext.language;
+    toggleLanguage = languageContext.toggleLanguage;
+
+    staticData = useStaticData();
+  } catch (error) {
+    // Fallback values
+    language = 'pl';
+    toggleLanguage = () => { };
+    staticData = null;
+  }
   const [navItems, setNavItems] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
@@ -15,18 +29,10 @@ export default function NavBar() {
   ];
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nawigacja?populate=*`);
-        const data = await response.json();
-        setNavItems({ ...data.data, original: data.data });
-      } catch (error) {
-        console.error('Błąd podczas pobierania danych:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    if (staticData?.navigation?.data) {
+      setNavItems({ ...staticData.navigation.data, original: staticData.navigation.data });
+    }
+  }, [staticData]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

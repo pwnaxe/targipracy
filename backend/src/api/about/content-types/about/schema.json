@@ -18,7 +18,6 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -26,8 +25,7 @@
       }
     },
     "description": {
-      "type": "text",
-      "required": true,
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true

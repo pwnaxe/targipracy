@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3003",
     "build": "next build",
-    "start": "next start",
+    "build:static": "BUILD_STATIC=true next build",
+    "start": "next start -p 3003",
     "lint": "next lint"
   },
   "dependencies": {
@@ -17,6 +18,7 @@
     "@splidejs/splide-extension-auto-scroll": "^0.5.3",
     "@strapi/blocks-react-renderer": "^1.0.1",
     "@types/three": "^0.168.0",
+    "framer-motion": "^12.23.12",
     "leva": "^0.9.35",
     "next": "14.2.13",
     "react": "^18",

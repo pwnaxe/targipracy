@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import Image from 'next/image';
 import { useLanguage } from '@/app/context/languageContext';
+import { useStaticData } from '@/app/context/staticDataContext';
 
 
 const Partnership = () => {
@@ -11,26 +12,22 @@ const Partnership = () => {
   const [title, setTitle] = useState('');
   const [button, setButton] = useState('');
   const { language } = useLanguage();
+  const staticData = useStaticData();
 
 
   useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/partnership?locale=${language}&populate=*`);
-        const data = await response.json();
+    if (staticData) {
+      const partnersData = language === 'pl' ? staticData.partners?.pl : staticData.partners?.en;
 
-        setContent(data.data.description || []);
-        setTitle(data.data.title);
-        setButton(data.data.button);
-      } catch (error) {
-        console.error('Błąd pobierania danych:', error);
+      if (partnersData?.data) {
+        setContent(partnersData.data.description || []);
+        setTitle(partnersData.data.title || '');
+        setButton(partnersData.data.button || '');
       }
-    };
+    }
+  }, [language, staticData]);
 
-    fetchContent();
-  }, [language]);
-
-  if (!title) {
+  if (!staticData) {
     return <div>Loading...</div>;
   }
 

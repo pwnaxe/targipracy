@@ -1,29 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from "@/app/context/languageContext";
+import { useStaticData } from '@/app/context/staticDataContext';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 
 export default function Bar() {
   const [isVisible, setIsVisible] = useState(true);
   const { language } = useLanguage();
+  const staticData = useStaticData();
   const [data, setData] = useState(null);
   const [titledata, setTitleData] = useState(null);
 
   useEffect(() => {
-    const fetchTitle = async () => {
-      setTitleData(null);
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/baner?locale=${language}&populate=*`
-        );
-        const responseData = await response.json();
-        setTitleData(responseData.data);
-      } catch (error) {
-        console.error("Błąd pobierania danych:", error);
-      }
-    };
+    if (staticData) {
+      const barData = language === 'pl' ? staticData.bar?.pl : staticData.bar?.en;
 
-    fetchTitle();
-  }, [language]);
+      if (barData?.data) {
+        setTitleData(barData.data);
+      }
+    }
+  }, [language, staticData]);
 
   if (!titledata) {
     return <div>Ładowanie...</div>;

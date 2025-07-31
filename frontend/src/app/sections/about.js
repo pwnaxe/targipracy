@@ -1,46 +1,28 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/app/context/languageContext";
+import { useStaticData } from "@/app/context/staticDataContext";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
 
 const About = () => {
   const { language } = useLanguage();
+  const staticData = useStaticData();
   const [data, setData] = useState(null);
   const [titledata, setTitleData] = useState(null);
 
   useEffect(() => {
-    const fetchTitle = async () => {
-      setTitleData(null);
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/o-wydarzeniu-tytul?locale=${language}&populate=*`
-        );
-        const responseData = await response.json();
-        setTitleData(responseData.data);
-      } catch (error) {
-        console.error("Błąd pobierania danych:", error);
+    if (staticData) {
+      // Ustawiamy dane na podstawie wybranego języka
+      if (language === 'pl') {
+        setTitleData(staticData.aboutTitle?.pl?.data);
+        setData(staticData.aboutContent?.pl?.data);
+      } else {
+        setTitleData(staticData.aboutTitle?.en?.data);
+        setData(staticData.aboutContent?.en?.data);
       }
-    };
-
-    fetchTitle();
-
-    const fetchContent = async () => {
-      setData(null);
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/abouts?locale=${language}&populate=*`
-        );
-        const responseData = await response.json();
-
-        setData(responseData.data);
-      } catch (error) {
-        console.error("Błąd pobierania danych:", error);
-      }
-    };
-
-    fetchContent();
-  }, [language]);
+    }
+  }, [language, staticData]);
 
   if (!data || !titledata) {
     return <div>Ładowanie...</div>;
@@ -63,16 +45,16 @@ const About = () => {
               </p>
             </div>
             <dl className="col-span-3 grid grid-cols-1 gap-x-8 gap-y-10 text-base text-gray-600 sm:grid-cols-2 lg:gap-y-16">
-              {data.map((data) => (
-                <div key={data.name} className="relative pl-9">
+              {data.map((item, index) => (
+                <div key={`${language}-${item.name}-${index}`} className="relative pl-9">
                   <dt className="font-semibold text-gray-900">
                     <CheckIcon
                       aria-hidden="true"
                       className="absolute left-0 top-1 h-5 w-5 text-indigo-500"
                     />
-                    {data.name}
+                    {item.name}
                   </dt>
-                  <dd className="mt-2">{data.description}</dd>
+                  <dd className="mt-2">{item.description}</dd>
                 </div>
               ))}
             </dl>

@@ -4,9 +4,11 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import Image from 'next/image';
 import Badge from '@/app/components/badge';
 import { useLanguage } from '@/app/context/languageContext';
+import { useStaticData } from '@/app/context/staticDataContext';
 
 export default function Hero() {
   const { language } = useLanguage();
+  const staticData = useStaticData();
   const [content, setContent] = useState(null);
   const [text, setText] = useState(null)
   const [initialContent] = useState([
@@ -40,19 +42,16 @@ export default function Hero() {
   ]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hero?locale=${language}&populate=*`);
-        const data = await res.json();
-        setContent(data.data.content);
-        setText(data.data.text)
-      } catch (error) {
-        console.error('Błąd podczas pobierania danych z API:', error);
+    if (staticData) {
+      if (language === 'pl' && staticData.hero?.pl?.data) {
+        setContent(staticData.hero.pl.data.content);
+        setText(staticData.hero.pl.data.text);
+      } else if (language === 'en' && staticData.hero?.en?.data) {
+        setContent(staticData.hero.en.data.content);
+        setText(staticData.hero.en.data.text);
       }
-    };
-
-    fetchData();
-  }, [language]);
+    }
+  }, [language, staticData]);
 
   if (content === null) {
     return (
